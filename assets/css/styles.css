@@ -1,0 +1,470 @@
+/* ==========================================================================
+   PerimeterAI. Safety That Sees First.
+   Accent is the brand orange taken from the pitch deck (#E8770A), desaturated
+   to 75% so it sits in the neutrals instead of vibrating against them.
+   One theme (dark), one accent, one corner radius (0). No exceptions.
+   ========================================================================== */
+@import url("fonts.css");
+
+/* --------------------------------------------------------------------------
+   1. Tokens
+   -------------------------------------------------------------------------- */
+:root {
+  --ground:     #14171a;
+  --raise:      #1a1e22;
+  --raise-2:    #21262b;
+  --line:       rgba(255, 255, 255, 0.085);
+  --line-firm:  #2e343b;
+
+  --accent:     #e17f2e;
+  --accent-lift:#f0913f;
+  --accent-ink: #22140a;
+
+  --text:       #e8eaeb;
+  --dim:        #98a1a8;
+  --quiet:      #6c757d;
+
+  --display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --body:    "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+  --mono:    "Geist Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+
+  --s-1:  clamp(13px, 0.85vw, 14px);
+  --s0:   clamp(16px, 1.05vw, 17px);
+  --s1:   clamp(18px, 1.35vw, 21px);
+  --s2:   clamp(23px, 2vw, 29px);
+  --s3:   clamp(29px, 3.2vw, 43px);
+  --s4:   clamp(36px, 4.9vw, 62px);
+
+  --nav-h: 68px;
+  --wrap: 1220px;
+  --gutter: clamp(20px, 4.2vw, 52px);
+}
+
+/* --------------------------------------------------------------------------
+   2. Base
+   -------------------------------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 16px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--ground);
+  color: var(--text);
+  font-family: var(--body);
+  font-size: var(--s0);
+  line-height: 1.62;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+/* height:auto is not cosmetic here. The width/height attributes on each <img>
+   set a presentational height, so scaling width alone distorts every photo.
+   This keeps aspect ratio correct everywhere images are fluid. */
+img { display: block; max-width: 100%; height: auto; }
+::selection { background: var(--accent); color: var(--accent-ink); }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+.wrap { width: min(100% - (var(--gutter) * 2), var(--wrap)); margin-inline: auto; }
+
+.skip {
+  position: absolute; left: -9999px; top: 0; z-index: 200;
+  background: var(--accent); color: var(--accent-ink);
+  padding: 12px 20px; font-weight: 600;
+}
+.skip:focus { left: 0; }
+
+/* --------------------------------------------------------------------------
+   3. Type
+   -------------------------------------------------------------------------- */
+h1, h2, h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.021em;
+  text-wrap: balance;
+}
+h1 { font-size: var(--s4); font-weight: 800; letter-spacing: -0.028em; }
+h2 { font-size: var(--s3); }
+h3 { font-size: var(--s1); letter-spacing: -0.012em; }
+
+p { max-width: 64ch; }
+strong { font-weight: 600; color: #fff; }
+.lede { font-size: var(--s1); line-height: 1.5; color: #bfc6cb; }
+.dim { color: var(--dim); }
+
+/* Eyebrow. Rationed to three on the page. */
+.eyebrow {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11.5px; font-weight: 500;
+  letter-spacing: 0.17em; text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 18px;
+}
+
+.tm { font-size: 0.44em; vertical-align: super; letter-spacing: 0; font-weight: 600; }
+
+/* --------------------------------------------------------------------------
+   4. Buttons. Sharp, one radius system across the page.
+   -------------------------------------------------------------------------- */
+.btn {
+  font-family: var(--body); font-weight: 600; font-size: 15px;
+  padding: 13px 24px;
+  display: inline-flex; align-items: center; gap: 9px;
+  border: 1px solid transparent; cursor: pointer; white-space: nowrap;
+  transition: background .17s ease, border-color .17s ease, transform .1s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--accent); color: var(--accent-ink); }
+.btn-primary:hover { background: var(--accent-lift); }
+.btn-ghost { border-color: var(--line-firm); color: #fff; background: rgba(20,23,26,.5); }
+.btn-ghost:hover { border-color: #5b656e; background: rgba(255,255,255,.05); }
+
+/* --------------------------------------------------------------------------
+   5. Header. Single line, 68px.
+   -------------------------------------------------------------------------- */
+header.bar {
+  position: sticky; top: 0; z-index: 90;
+  height: var(--nav-h); display: flex; align-items: center;
+  background: rgba(20, 23, 26, 0.9);
+  backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--line);
+}
+.bar .wrap { display: flex; align-items: center; gap: 22px; }
+.mark { display: flex; align-items: center; gap: 10px; margin-right: auto; }
+.mark .g { width: 24px; height: 24px; flex: none; border: 2px solid var(--accent); display: grid; place-items: center; }
+.mark .g::after { content: ""; width: 6px; height: 6px; background: var(--accent); }
+.mark b { font-family: var(--display); font-weight: 800; font-size: 17.5px; letter-spacing: -0.015em; color: #fff; }
+
+nav.links { display: flex; align-items: center; gap: 2px; }
+nav.links a { font-size: 14.5px; color: var(--dim); padding: 9px 13px; transition: color .15s ease; }
+nav.links a:hover, nav.links a.active { color: #fff; }
+
+.nav-toggle {
+  display: none; width: 44px; height: 44px;
+  background: none; border: 1px solid var(--line-firm); cursor: pointer; place-items: center;
+}
+.nav-toggle span { display: block; width: 17px; height: 1.5px; background: #fff; transition: transform .2s ease, opacity .2s ease; }
+.nav-toggle span + span { margin-top: 4px; }
+.nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+.nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+/* --------------------------------------------------------------------------
+   6. Section shell
+   -------------------------------------------------------------------------- */
+section { padding: clamp(72px, 9vw, 124px) 0; }
+.head { max-width: 660px; margin-bottom: clamp(40px, 5.5vw, 60px); }
+.head p { margin-top: 18px; color: var(--dim); }
+
+/* --------------------------------------------------------------------------
+   7. Hero. Family: full-bleed media with left copy.
+   Four text elements only: eyebrow, headline, subtext, CTAs.
+   -------------------------------------------------------------------------- */
+.hero {
+  position: relative; overflow: hidden;
+  min-height: min(100dvh, 860px);
+  display: grid; align-items: center;
+  padding: 0;
+  border-bottom: 1px solid var(--line);
+}
+.hero-media { position: absolute; inset: 0; z-index: 0; }
+.hero-media img { width: 100%; height: 100%; object-fit: cover; }
+.hero-media::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(94deg, rgba(20,23,26,.95) 0%, rgba(20,23,26,.82) 38%, rgba(20,23,26,.30) 78%, rgba(20,23,26,.16) 100%),
+    linear-gradient(180deg, rgba(20,23,26,.55) 0%, rgba(20,23,26,0) 26%, rgba(20,23,26,.60) 100%);
+}
+.hero .wrap { position: relative; z-index: 1; padding-block: 88px 72px; }
+.hero h1 { max-width: 21ch; margin-bottom: 22px; }
+.hero .lede { max-width: 46ch; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 34px; }
+
+/* --------------------------------------------------------------------------
+   8. Reach. Family: full-width band, wrapped name grid.
+   -------------------------------------------------------------------------- */
+.reach { padding-block: clamp(44px, 5vw, 62px); border-bottom: 1px solid var(--line); background: var(--raise); }
+.reach .inner { display: grid; grid-template-columns: minmax(180px, 260px) 1fr; gap: clamp(24px, 4vw, 56px); align-items: start; }
+.reach h2 { font-size: var(--s1); font-family: var(--body); font-weight: 600; letter-spacing: 0; line-height: 1.35; }
+.countries { display: flex; flex-wrap: wrap; gap: 10px 12px; }
+.countries li {
+  list-style: none;
+  font-family: var(--mono); font-size: 12.5px; letter-spacing: 0.04em;
+  color: #b3bac0; border: 1px solid var(--line-firm); padding: 6px 11px;
+}
+
+/* --------------------------------------------------------------------------
+   9. Outcomes. Family: hairline-divided 2x2 grid, no cards.
+   -------------------------------------------------------------------------- */
+.outcomes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border-block: 1px solid var(--line); }
+.outcomes > article { background: var(--ground); padding: clamp(30px, 3.6vw, 46px) clamp(24px, 3vw, 40px); min-width: 0; }
+.outcomes h3 { margin-bottom: 12px; }
+.outcomes p { font-size: 15.5px; color: var(--dim); }
+
+/* --------------------------------------------------------------------------
+   9.b Industries. Family: icon row. Marks are the client's own, recoloured
+   through currentColor so they sit in the one accent like everything else.
+   -------------------------------------------------------------------------- */
+.ind-row {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: clamp(16px, 2.4vw, 30px);
+  border-block: 1px solid var(--line);
+  padding-block: clamp(30px, 3.6vw, 42px);
+}
+.ind-row li {
+  display: grid; justify-items: center; gap: 14px; text-align: center; min-width: 0;
+  color: var(--accent);
+}
+.ind-row svg { width: 52px; height: 52px; }
+.ind-row span {
+  font-family: var(--mono); font-size: 11px; font-weight: 500;
+  letter-spacing: 0.13em; text-transform: uppercase; color: var(--dim);
+}
+
+/* --------------------------------------------------------------------------
+   10. Split. Family used exactly twice on the page, never consecutively.
+   -------------------------------------------------------------------------- */
+.split { display: grid; grid-template-columns: 1.05fr 1fr; gap: clamp(36px, 5.5vw, 84px); align-items: center; }
+.split.media-right .m { order: 2; }
+.split .m { min-width: 0; }
+.split .m img { width: 100%; height: auto; border: 1px solid var(--line); }
+.split .m.plate {
+  border: 1px solid var(--line);
+  background: var(--raise);
+  padding: clamp(22px, 3vw, 40px);
+}
+.split .m.plate img { border: 0; }
+.split .t { min-width: 0; }
+.split .t h2 { margin-bottom: 18px; }
+
+/* Definition rows. Two hairlines total, not one per row. */
+.deflist { margin-top: 32px; display: grid; gap: 22px; }
+.deflist > div { display: grid; gap: 5px; }
+.deflist dt { font-weight: 600; color: #fff; font-size: 16px; }
+.deflist dd { font-size: 15px; color: var(--dim); }
+
+/* --------------------------------------------------------------------------
+   11. Figures. Family: full-width divided numeric band.
+   -------------------------------------------------------------------------- */
+.figures { border-block: 1px solid var(--line); background: var(--raise); }
+.figures .inner { display: grid; grid-template-columns: repeat(4, 1fr); }
+.figures > .inner > div { padding: clamp(30px, 3.6vw, 44px) clamp(18px, 2.2vw, 30px); border-left: 1px solid var(--line); min-width: 0; }
+.figures > .inner > div:first-child { border-left: 0; padding-left: 0; }
+.figures b {
+  display: block; font-family: var(--display); font-weight: 800;
+  font-size: clamp(30px, 3.6vw, 50px); line-height: 1; letter-spacing: -0.03em;
+  color: #fff; font-variant-numeric: tabular-nums; margin-bottom: 11px;
+}
+.figures b i { font-style: normal; font-size: 0.4em; color: var(--accent); margin-left: 2px; }
+.figures span { font-size: 14.5px; color: var(--dim); }
+
+/* --------------------------------------------------------------------------
+   12. Media grid. Family: three images with captions below, text above.
+   -------------------------------------------------------------------------- */
+.mgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(18px, 2.4vw, 30px); }
+.mgrid figure { min-width: 0; }
+.mgrid picture {
+  /* Plate, not crop. fig02 and fig03 are only 230px and 271px wide, so
+     stretching them to fill the cell upscales them into mush. The plate keeps
+     one cell size across the row while each image renders at native size or
+     smaller, which is the only way these stay sharp until 2x sources exist. */
+  display: grid;
+  place-items: center;
+  /* Explicit height, not aspect-ratio: aspect-ratio is only a preferred size,
+     so a taller image stretches its own plate and the captions stop lining up. */
+  height: clamp(250px, 22vw, 310px);
+  overflow: hidden;
+  padding: clamp(14px, 1.6vw, 22px);
+  background: var(--raise-2);
+  border: 1px solid var(--line);
+}
+.mgrid img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  border: 0;
+}
+.mgrid figcaption { padding-top: 16px; }
+.mgrid h3 { font-size: 17.5px; margin-bottom: 7px; }
+.mgrid p { font-size: 14.5px; color: var(--dim); }
+
+/* --------------------------------------------------------------------------
+   13. Two panel. Family: paired products side by side.
+   -------------------------------------------------------------------------- */
+.panels { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.panels > article { background: var(--raise); padding: clamp(28px, 3.4vw, 44px); min-width: 0; }
+.panels h3 { font-size: var(--s2); margin-bottom: 4px; }
+.panels .role { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--accent); display: block; margin-bottom: 22px; }
+.panels ul { list-style: none; display: grid; gap: 14px; }
+.panels li { font-size: 15px; color: var(--dim); padding-left: 18px; position: relative; }
+.panels li::before { content: ""; position: absolute; left: 0; top: 10px; width: 7px; height: 1px; background: var(--accent); }
+.panels picture {
+  display: grid;
+  place-items: center;
+  margin: 0 0 24px;
+  height: clamp(230px, 20vw, 280px);
+  overflow: hidden;
+  padding: 16px;
+  background: var(--raise-2);
+  border: 1px solid var(--line);
+}
+.panels .shot {
+  margin: 0;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+}
+.panels > article { display: flex; flex-direction: column; }
+.panels h3 { order: 1; }
+.panels .role { order: 2; }
+.panels picture { order: 3; }
+.panels ul { order: 4; }
+
+/* --------------------------------------------------------------------------
+   14. Stacked rows. Family: numbered-free editorial list.
+   -------------------------------------------------------------------------- */
+.stack { border-top: 1px solid var(--line); }
+.stack > article {
+  display: grid; grid-template-columns: minmax(200px, 340px) 1fr;
+  gap: clamp(20px, 4vw, 60px);
+  padding: clamp(28px, 3.4vw, 42px) 0;
+  border-bottom: 1px solid var(--line);
+}
+.stack h3 { margin: 0; }
+.stack p { color: var(--dim); font-size: 15.5px; }
+
+/* --------------------------------------------------------------------------
+   15. CTA. Family: full-bleed media with overlay copy.
+   -------------------------------------------------------------------------- */
+.cta { position: relative; overflow: hidden; padding: 0; border-block: 1px solid var(--line); }
+.cta-media { position: absolute; inset: 0; z-index: 0; }
+.cta-media img { width: 100%; height: 100%; object-fit: cover; }
+.cta-media::after { content: ""; position: absolute; inset: 0; background: linear-gradient(92deg, rgba(20,23,26,.96) 0%, rgba(20,23,26,.84) 44%, rgba(20,23,26,.38) 100%); }
+.cta .wrap { position: relative; z-index: 1; padding-block: clamp(74px, 9vw, 118px); }
+.cta h2 { max-width: 16ch; margin-bottom: 18px; }
+.cta .hero-ctas { margin-top: 30px; }
+
+/* --------------------------------------------------------------------------
+   16. Contact. Family: form beside detail column.
+   -------------------------------------------------------------------------- */
+.cgrid { display: grid; grid-template-columns: 0.8fr 1.2fr; gap: clamp(40px, 6vw, 78px); align-items: start; }
+.cdetail dl { margin-top: 28px; display: grid; gap: 20px; }
+.cdetail dt { font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--quiet); margin-bottom: 5px; }
+.cdetail dd { font-size: 15.5px; }
+.cdetail a:hover { color: var(--accent); }
+
+form { display: grid; gap: 18px; }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.field { display: grid; gap: 7px; min-width: 0; }
+.field label { font-size: 13.5px; font-weight: 500; color: #c6ccd1; }
+.field .req { color: var(--accent); }
+.field input, .field select, .field textarea {
+  font-family: var(--body); font-size: 15.5px; color: var(--text);
+  background: var(--raise-2); border: 1px solid var(--line-firm);
+  padding: 12px 14px; width: 100%;
+  transition: border-color .15s ease;
+}
+.field textarea { resize: vertical; min-height: 124px; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--accent); }
+.field ::placeholder { color: #7c858c; }
+.field .err { font-size: 13px; color: #ef8f6b; min-height: 1.1em; }
+.field.bad input, .field.bad select, .field.bad textarea { border-color: #ef8f6b; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.fnote { font-size: 13.5px; color: var(--quiet); }
+.fstatus { font-size: 15px; padding: 14px 16px; border: 1px solid var(--accent); color: var(--accent); display: none; }
+.fstatus.show { display: block; }
+.fstatus.bad { border-color: #ef8f6b; color: #ef8f6b; }
+
+/* --------------------------------------------------------------------------
+   17. Footer
+   -------------------------------------------------------------------------- */
+footer { padding: clamp(46px, 5.5vw, 68px) 0 38px; border-top: 1px solid var(--line); }
+.ftop { display: flex; flex-wrap: wrap; gap: 26px 46px; justify-content: space-between; align-items: start; }
+.ftag { font-family: var(--mono); font-size: 11.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-top: 12px; }
+.flinks { display: flex; flex-wrap: wrap; gap: 9px 28px; }
+.flinks a { font-size: 14.5px; color: var(--dim); }
+.flinks a:hover { color: #fff; }
+.fbase { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--line); display: flex; flex-wrap: wrap; gap: 9px 26px; justify-content: space-between; font-size: 13px; color: var(--quiet); }
+
+/* --------------------------------------------------------------------------
+   18. Motion. Scroll reveal only, to stage sections in reading order.
+   -------------------------------------------------------------------------- */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity .55s ease, transform .55s ease; }
+.reveal.in { opacity: 1; transform: none; }
+.no-js .reveal { opacity: 1; transform: none; }
+
+/* --------------------------------------------------------------------------
+   19. Responsive
+   -------------------------------------------------------------------------- */
+@media (max-width: 1000px) {
+  .ind-row { grid-template-columns: repeat(3, 1fr); row-gap: 30px; }
+  .figures .inner { grid-template-columns: repeat(2, 1fr); }
+  .figures > .inner > div:nth-child(3) { border-left: 0; padding-left: 0; }
+  .figures > .inner > div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
+  .mgrid { grid-template-columns: 1fr; }
+  .reach .inner { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  .nav-toggle { display: grid; }
+  nav.links {
+    position: absolute; top: var(--nav-h); left: 0; right: 0;
+    flex-direction: column; align-items: stretch; gap: 0;
+    background: var(--ground); border-bottom: 1px solid var(--line);
+    box-shadow: 0 20px 44px rgba(0,0,0,.55);
+    max-height: 0; overflow: hidden; transition: max-height .27s ease;
+  }
+  nav.links.open { max-height: 340px; }
+  nav.links a { padding: 15px var(--gutter); border-top: 1px solid var(--line); font-size: 16px; }
+  .bar .btn-primary { display: none; }
+  .split, .split.media-right { grid-template-columns: 1fr; }
+  .split.media-right .m { order: 0; }
+  .outcomes { grid-template-columns: 1fr; }
+  .panels { grid-template-columns: 1fr; }
+  .stack > article { grid-template-columns: 1fr; gap: 12px; }
+  .cgrid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 560px) {
+  .ind-row { grid-template-columns: repeat(2, 1fr); }
+  .figures .inner { grid-template-columns: 1fr; }
+  .figures > .inner > div { border-left: 0; padding-left: 0; border-bottom: 1px solid var(--line); }
+  .figures > .inner > div:last-child { border-bottom: 0; }
+  .pair { grid-template-columns: 1fr; }
+  .hero h1 { max-width: none; }
+}
+
+/* --------------------------------------------------------------------------
+   20. Reduced motion and print
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after { animation-duration: .001ms !important; transition-duration: .001ms !important; }
+}
+
+@media print {
+  body { background: #fff; color: #000; }
+  header.bar, .hero-ctas, .nav-toggle, form { display: none; }
+  .hero-media, .cta-media { display: none; }
+  section { padding: 22px 0; }
+}
+
+/* --------------------------------------------------------------------------
+   21. Demo notice. This repository is a portfolio build of a real client
+   brand, so the footer says so plainly rather than letting a visitor mistake
+   it for the production site or send an enquiry the form cannot deliver.
+   -------------------------------------------------------------------------- */
+.demo-note { flex-basis: 100%; color: var(--quiet); font-size: 12.5px; }
+.demo-note a { color: var(--dim); text-decoration: underline; text-underline-offset: 2px; }
+.demo-note a:hover { color: var(--accent); }

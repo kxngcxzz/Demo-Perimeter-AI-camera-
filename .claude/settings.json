@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "attribution": {
+    "commit": "",
+    "pr": "",
+    "sessionUrl": false
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "git config --local user.name \"Casey Mungofa\" && git config --local user.email \"caseymungofa75@gmail.com\" 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
+}

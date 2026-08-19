@@ -1,0 +1,4 @@
+# Portfolio demo. Kept out of search so it never competes with the
+# production site it was built for.
+User-agent: *
+Disallow: /

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found — PerimeterAI</title>
+<meta name="description" content="That page doesn't exist. Head back to the PerimeterAI homepage.">
+<meta name="robots" content="noindex, follow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@700;800&family=Geist:wght@400;600&display=swap" rel="stylesheet">
+<!--
+  [ADDED] Self-contained by design. A 404 is served in response to ANY unknown
+  URL, at any depth, so a relative stylesheet path ("assets/css/styles.css")
+  resolves differently on every miss, and a root-absolute one ("/assets/...")
+  breaks under a GitHub Pages project subpath. Inlining the ~40 lines this page
+  actually uses is the only version that renders correctly everywhere.
+-->
+<style>
+  :root {
+    --ink-deep: #14171a;
+    --line: #3a434c;
+    --teal: #17b3a3;
+    --off: #eceeec;
+    --font-display: "Archivo", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--ink-deep);
+    color: var(--off);
+    font-family: var(--font-body);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; text-decoration: none; }
+  :focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; }
+  .error-page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 120px 24px;
+  }
+  .eyebrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 16px;
+  }
+  .eyebrow::before { content: ""; width: 18px; height: 1px; background: var(--teal); }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 9vw, 104px);
+    line-height: 1;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+  }
+  .error-page p { color: #9da2a0; margin-bottom: 30px; }
+  .ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 13.5px;
+    padding: 10px 20px;
+    border-radius: 2px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid transparent;
+    transition: background .2s ease, border-color .2s ease;
+  }
+  .btn-primary { background: var(--teal); color: #052b27; }
+  .btn-primary:hover { background: #28c6b6; }
+  .btn-ghost { border-color: var(--line); color: #fff; }
+  .btn-ghost:hover { border-color: #7a828a; background: rgba(255, 255, 255, 0.04); }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } }
+</style>
+</head>
+<body>
+<main class="error-page">
+  <div>
+    <p class="eyebrow">Error 404</p>
+    <h1>Nothing here.</h1>
+    <p>That page doesn't exist — or it moved. The homepage has everything.</p>
+    <div class="ctas">
+      <a id="home" href="/" class="btn btn-primary">Back to the homepage</a>
+      <a id="contact" href="/#contact" class="btn btn-ghost">Book a walkthrough</a>
+    </div>
+  </div>
+</main>
+<script>
+  /* [ADDED] Resolve the site root. On a custom domain (perimeterai.com.au) that
+     is "/". On a GitHub Pages project site it is "/<repo>/", so the hard-coded
+     "/" above would send visitors to the github.io root instead of this site.
+     The href attributes are correct for production; this only corrects them
+     when the page is being served from a subpath. */
+  (function () {
+    var root = '/';
+    if (location.hostname.slice(-10) === '.github.io') {
+      var seg = location.pathname.split('/')[1];
+      if (seg) root = '/' + seg + '/';
+    }
+    if (root !== '/') {
+      document.getElementById('home').setAttribute('href', root);
+      document.getElementById('contact').setAttribute('href', root + '#contact');
+    }
+  })();
+</script>
+</body>
+</html>
