@@ -34,7 +34,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      # enablement:true lets the workflow turn Pages on itself. Without it,
+      # configure-pages asks GitHub for a Pages site, gets a 404 on a repo
+      # where Pages was never switched on, and the deploy fails before it
+      # uploads anything.
       - uses: actions/configure-pages@v6
+        with:
+          enablement: true
       - uses: actions/upload-pages-artifact@v5
         with:
           path: '.'
