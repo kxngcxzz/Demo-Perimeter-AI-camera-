@@ -1,0 +1,373 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Velvet Lengths Storefront</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Italiana&family=Figtree:wght@400;500;600;700&family=DM+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: editorial storefront — wide hero with texture swatches, then shop rails; mirrors Shopify Dawn sections so it maps 1:1 to theme blocks */
+:root{
+  --bg:#f7f3f4; --surface:#ffffff; --ink:#24141c; --muted:#6e5a64; --line:#e4d9dd;
+  --accent:#6b1f3d; --accent-ink:#fff; --gold:#b98a4e; --soft:#efe4e8;
+  --display:"Italiana", "Didot", Georgia, serif;
+  --body:"Figtree", system-ui, -apple-system, sans-serif;
+  --mono:"DM Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#170d12; --surface:#21141b; --ink:#f3e9ed; --muted:#b8a3ad; --line:#3a2730;
+  --accent:#d98aa9; --accent-ink:#1a0c12; --gold:#d6ad74; --soft:#2b1a22; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#170d12; --surface:#21141b; --ink:#f3e9ed; --muted:#b8a3ad; --line:#3a2730;
+  --accent:#d98aa9; --accent-ink:#1a0c12; --gold:#d6ad74; --soft:#2b1a22; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:400 16px/1.6 var(--body)}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;margin:0;line-height:1.05}
+.eyebrow{font:500 12px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:14px 26px;font-weight:600;background:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn:hover{filter:brightness(1.08)}
+
+/* announcement + header */
+.announce{background:var(--ink);color:var(--bg);font-size:13px;text-align:center;padding-block:9px}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--surface);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:24px;padding-block:14px}
+.logo{font-family:var(--display);font-size:28px;letter-spacing:.04em;white-space:nowrap}
+.logo small{display:block;font:500 9px/1 var(--mono);letter-spacing:.3em;color:var(--gold);margin-top:2px}
+nav{display:flex;gap:22px;flex:1;font-size:14px;font-weight:500;overflow-x:auto;scrollbar-width:none}
+nav a{white-space:nowrap;padding-block:4px;border-bottom:1.5px solid transparent}
+nav a:hover{border-color:var(--accent)}
+nav a.sale{color:var(--accent)}
+.icons{display:flex;gap:16px;align-items:center;font-size:14px}
+.cart{position:relative;background:none;border:0;color:var(--ink);padding:4px}
+.cart b{position:absolute;top:-4px;right:-8px;background:var(--accent);color:var(--accent-ink);font:600 11px/18px var(--body);min-width:18px;border-radius:9px;text-align:center}
+@media (max-width:860px){.bar{flex-wrap:wrap;gap:10px}nav{order:3;flex-basis:100%}}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding-block:56px 64px}
+.hero h1{font-size:clamp(44px,6.4vw,88px)}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{max-width:46ch;color:var(--muted);font-size:18px;margin:20px 0 28px}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap}
+.proof{display:flex;gap:28px;margin-top:36px;flex-wrap:wrap}
+.proof div{font-size:13px;color:var(--muted)}
+.proof strong{display:block;font:400 30px/1 var(--display);color:var(--ink)}
+.hero-art{position:relative;aspect-ratio:4/5;max-width:100%;border-radius:220px 220px 16px 16px;overflow:hidden;background:var(--soft)}
+.hero-art canvas{width:100%;height:100%;display:block}
+.tag{position:absolute;left:18px;bottom:18px;right:18px;background:var(--surface);border-radius:14px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px}
+.tag span{color:var(--muted);font-size:12px;display:block}
+@media (max-width:860px){.hero{grid-template-columns:1fr;padding-block:32px 40px}.hero-art{aspect-ratio:1/1;border-radius:160px 160px 16px 16px}}
+
+section{padding-block:56px}
+.head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.head h2{font-size:clamp(32px,4vw,48px)}
+.head a{font-size:14px;font-weight:600;border-bottom:1.5px solid var(--ink)}
+
+/* textures */
+.textures{display:grid;grid-template-columns:repeat(6,1fr);gap:14px}
+.tex{display:flex;flex-direction:column;gap:10px;font-weight:600;font-size:15px}
+.tex canvas{width:100%;aspect-ratio:1;border-radius:50%;background:var(--soft);display:block;transition:transform .3s}
+.tex:hover canvas{transform:scale(1.04)}
+.tex span{font:400 12px var(--mono);color:var(--muted)}
+.tex{text-align:center}
+@media (max-width:860px){.textures{grid-template-columns:repeat(3,1fr)}}
+
+/* products */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:8px 16px;font-size:14px}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+@media (max-width:1000px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.card{display:flex;flex-direction:column;gap:10px}
+.media{position:relative;aspect-ratio:4/5;max-width:100%;border-radius:12px;overflow:hidden;background:var(--soft)}
+.media canvas{width:100%;height:100%;display:block}
+.badge{position:absolute;top:10px;left:10px;background:var(--surface);font:500 11px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;padding:6px 9px;border-radius:6px}
+.badge.hot{background:var(--accent);color:var(--accent-ink)}
+.quick{position:absolute;left:10px;right:10px;bottom:10px;opacity:0;transform:translateY(6px);transition:.2s;justify-content:center}
+.card:hover .quick,.quick:focus-visible{opacity:1;transform:none}
+@media (hover:none){.quick{opacity:1;transform:none}}
+.card h3{font:600 15px/1.35 var(--body)}
+.meta{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.price{font-weight:700;font-variant-numeric:tabular-nums}
+.price s{color:var(--muted);font-weight:400;margin-left:6px}
+.stars{color:var(--gold);font-size:13px;white-space:nowrap}
+.stars i{color:var(--muted);font-style:normal}
+.lengths{display:flex;gap:4px;flex-wrap:wrap}
+.lengths button{border:1px solid var(--line);background:none;color:var(--ink);border-radius:6px;font:400 12px var(--mono);padding:4px 7px}
+.lengths button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.klarna{font-size:12px;color:var(--muted)}
+
+/* bundle builder */
+.bundle{background:var(--ink);color:var(--bg);border-radius:20px;display:grid;grid-template-columns:1fr 1.1fr;gap:40px;padding:44px}
+.bundle h2{font-size:clamp(34px,4.4vw,56px)}
+.bundle p{color:color-mix(in srgb,var(--bg) 75%,transparent);max-width:44ch}
+.bundle .eyebrow{color:var(--gold)}
+.builder{background:color-mix(in srgb,var(--bg) 7%,transparent);border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.row label{font-size:13px;color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{background:transparent;color:var(--bg);border:1px solid color-mix(in srgb,var(--bg) 30%,transparent);border-radius:8px;padding:6px 10px;font:400 13px var(--mono)}
+.seg button[aria-pressed="true"]{background:var(--gold);color:#1a0c12;border-color:var(--gold)}
+.total{border-top:1px solid color-mix(in srgb,var(--bg) 20%,transparent);padding-top:14px;font-variant-numeric:tabular-nums}
+.total strong{font:400 34px/1 var(--display)}
+.total s{opacity:.6;margin-left:8px}
+.bundle .btn{background:var(--gold);color:#1a0c12;justify-content:center}
+@media (max-width:860px){.bundle{grid-template-columns:1fr;padding:26px}}
+
+/* usp */
+.usps{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border-block:1px solid var(--line)}
+.usp{background:var(--bg);padding:26px 20px}
+.usp h3{font:600 15px var(--body);margin-bottom:4px}
+.usp p{margin:0;font-size:14px;color:var(--muted)}
+@media (max-width:860px){.usps{grid-template-columns:1fr 1fr}}
+
+/* length guide */
+.guide{display:grid;grid-template-columns:.9fr 1.1fr;gap:48px;align-items:center}
+.guide p{color:var(--muted);max-width:48ch}
+.chart{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px;overflow-x:auto}
+.chart svg{display:block;width:100%;min-width:420px;height:auto}
+@media (max-width:860px){.guide{grid-template-columns:1fr}}
+
+/* reviews */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.review{background:var(--surface);border-radius:14px;padding:24px;display:flex;flex-direction:column;gap:12px}
+.review blockquote{margin:0;font-size:16px}
+.review footer{font-size:13px;color:var(--muted);margin-top:auto}
+@media (max-width:860px){.reviews{grid-template-columns:1fr}}
+
+/* faq */
+.faq{max-width:820px}
+details{border-bottom:1px solid var(--line);padding-block:18px}
+summary{font-weight:600;cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px}
+summary::after{content:"+";font-size:22px;line-height:1;color:var(--accent)}
+details[open] summary::after{content:"–"}
+details p{color:var(--muted);margin:10px 0 0;max-width:65ch}
+
+/* newsletter + footer */
+.news{background:var(--soft);border-radius:20px;padding:44px;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+.news h2{font-size:clamp(28px,3.4vw,42px)}
+.news form{display:flex;gap:8px;flex-wrap:wrap;flex:1;max-width:460px}
+.news input{flex:1;min-width:0;border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:14px 20px;font:inherit}
+.news .ok{font-size:14px;color:var(--accent);flex-basis:100%;margin:0}
+footer.site{border-top:1px solid var(--line);margin-top:56px;padding-block:44px 28px;font-size:14px}
+.cols{display:grid;grid-template-columns:1.4fr repeat(3,1fr);gap:28px}
+.cols h4{font:500 12px var(--mono);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 12px}
+.cols a{display:block;padding-block:3px}
+.pay{display:flex;gap:6px;flex-wrap:wrap;margin-top:28px}
+.pay span{border:1px solid var(--line);border-radius:6px;padding:4px 9px;font:500 11px var(--mono)}
+@media (max-width:860px){.cols{grid-template-columns:1fr 1fr}}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:999px;font-size:14px;z-index:20}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head><body>
+
+<div class="announce">Free UK tracked delivery over £99 · Pay in 3 with Klarna · Use <b>FIRST10</b> for 10% off</div>
+
+<header>
+  <div class="wrap bar">
+    <a class="logo" href="#" style="display:flex;align-items:center;gap:10px"><svg viewBox="0 0 120 120" width="40" height="40" style="color:var(--accent);flex:none" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round"><circle cx="60" cy="60" r="56" stroke-width="2.4"/><path d="M30 26 C38 40 34 52 44 66 C52 78 56 86 60 96M90 26 C82 40 86 52 76 66 C68 78 64 86 60 96" stroke-width="5"/><path d="M36 24 C44 40 42 54 51 68 C56 77 58 84 60 92M84 24 C76 40 78 54 69 68 C64 77 62 84 60 92" stroke-width="2" opacity=".7"/></g></svg><span>Velvet Lengths<small>100% VIRGIN HAIR</small></span></a>
+    <nav aria-label="Main">
+      <a href="#shop">Wigs</a><a href="#shop">Bundles</a><a href="#shop">Closures &amp; Frontals</a>
+      <a href="#shop">Clip-ins</a><a href="#shop">Hair Care</a><a href="#guide">Length Guide</a><a class="sale" href="#shop">Sale</a>
+    </nav>
+    <div class="icons">
+      <a href="#">Search</a><a href="#">Account</a>
+      <button class="cart" id="cartBtn" aria-label="Cart">Bag <b id="cartCount">0</b></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">New season · Raw Cambodian collection</p>
+      <h1>Hair that moves<br>like it's <em>yours</em>.</h1>
+      <p>Single-donor virgin bundles, HD lace wigs and frontals. Cuticle-aligned, unprocessed and ready to colour, curl or wear straight from the pack.</p>
+      <div class="ctas"><a class="btn" href="#shop">Shop bestsellers</a><a class="btn ghost" href="#bundle">Build a bundle deal</a></div>
+      <div class="proof">
+        <div><strong>4.9★</strong>2,300+ reviews</div>
+        <div><strong>12–30"</strong>lengths in stock</div>
+        <div><strong>14 days</strong>hassle-free returns</div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <canvas data-tex="body" data-tone="2" aria-hidden="true"></canvas>
+      <div class="tag"><div><span>Featured</span>Body Wave 13×4 HD Lace Wig · 22"</div><b>£239</b></div>
+    </div>
+  </div>
+
+  <section class="wrap" aria-labelledby="t-tex">
+    <div class="head"><h2 id="t-tex">Shop by texture</h2><a href="#shop">View all</a></div>
+    <div class="textures">
+      <a class="tex" href="#shop"><canvas data-tex="straight"></canvas>Silky Straight<span>Bone straight</span></a>
+      <a class="tex" href="#shop"><canvas data-tex="body"></canvas>Body Wave<span>Soft S-pattern</span></a>
+      <a class="tex" href="#shop"><canvas data-tex="loose"></canvas>Loose Wave<span>Beach wave</span></a>
+      <a class="tex" href="#shop"><canvas data-tex="deep"></canvas>Deep Wave<span>Defined ripple</span></a>
+      <a class="tex" href="#shop"><canvas data-tex="water"></canvas>Water Wave<span>Wet &amp; wavy</span></a>
+      <a class="tex" href="#shop"><canvas data-tex="kinky"></canvas>Kinky Curly<span>3C–4A curl</span></a>
+    </div>
+  </section>
+
+  <section class="wrap" id="shop" aria-labelledby="t-best">
+    <div class="head"><h2 id="t-best">Bestsellers</h2><a href="#">Shop all hair</a></div>
+    <div class="filters" role="group" aria-label="Filter products">
+      <button class="chip" aria-pressed="true" data-f="all">All</button>
+      <button class="chip" aria-pressed="false" data-f="wig">Wigs</button>
+      <button class="chip" aria-pressed="false" data-f="bundle">Bundles</button>
+      <button class="chip" aria-pressed="false" data-f="closure">Closures &amp; Frontals</button>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+  <section class="wrap" id="bundle">
+    <div class="bundle">
+      <div>
+        <p class="eyebrow">Bundle builder</p>
+        <h2>3 bundles + closure.<br>Save up to 20%.</h2>
+        <p>Pick your texture and lengths. Most full sew-ins take three bundles; go for four if you want 24" and longer to look full at the ends.</p>
+      </div>
+      <div class="builder">
+        <div class="row"><label>Texture</label><div class="seg" data-k="tex"><button aria-pressed="true">Straight</button><button aria-pressed="false">Body Wave</button><button aria-pressed="false">Deep Wave</button></div></div>
+        <div class="row"><label>Bundle lengths</label><div class="seg" data-k="len"><button aria-pressed="false">14/16/18"</button><button aria-pressed="true">18/20/22"</button><button aria-pressed="false">22/24/26"</button></div></div>
+        <div class="row"><label>Add-on</label><div class="seg" data-k="add"><button aria-pressed="false">None</button><button aria-pressed="true">5×5 Closure</button><button aria-pressed="false">13×4 Frontal</button></div></div>
+        <div class="row total"><span>Bundle price</span><span><strong id="bTotal">£0</strong><s id="bWas"></s></span></div>
+        <button class="btn" id="bAdd">Add bundle deal to bag</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="usps">
+    <div class="usp"><h3>100% virgin human hair</h3><p>Unprocessed, single-donor, cuticles intact.</p></div>
+    <div class="usp"><h3>Tracked delivery</h3><p>Dispatched in 1–3 working days, tracking sent by email.</p></div>
+    <div class="usp"><h3>Pay in 3</h3><p>Klarna and Clearpay at checkout, interest-free.</p></div>
+    <div class="usp"><h3>14-day returns</h3><p>Unopened, unworn hair with lace uncut.</p></div>
+  </div></div>
+
+  <section class="wrap" id="guide" aria-labelledby="t-guide">
+    <div class="guide">
+      <div>
+        <p class="eyebrow">Length guide</p>
+        <h2 id="t-guide" style="font-size:clamp(32px,4vw,48px);margin:10px 0 16px">Where will it fall?</h2>
+        <p>Hair is measured straight, from the weft to the tips. Curly and deep wave textures shrink when worn, so size up about 2" to land at the same point.</p>
+        <a class="btn ghost" href="#">Full sizing &amp; density guide</a>
+      </div>
+      <div class="chart"><svg id="lenChart" viewBox="0 0 520 300" role="img" aria-label="Hair length guide from 12 to 30 inches"></svg></div>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="t-rev">
+    <div class="head"><h2 id="t-rev">Worn &amp; loved</h2><a href="#">Read 2,300+ reviews</a></div>
+    <div class="reviews">
+      <article class="review"><div class="stars">★★★★★</div><blockquote>"Three bundles of the 20/22/24 body wave. No shedding after washing, and it held a curl all week."</blockquote><footer>Amara O. · Verified buyer · Body Wave Bundles</footer></article>
+      <article class="review"><div class="stars">★★★★★</div><blockquote>"The HD lace really melts. I bleached the knots myself and it took toner evenly."</blockquote><footer>Chantelle R. · Verified buyer · 13×4 Frontal Wig</footer></article>
+      <article class="review"><div class="stars">★★★★☆</div><blockquote>"Arrived in 4 days with tracking the whole way. Kinky curly is full and soft. Would order 26" next time."</blockquote><footer>Ife A. · Verified buyer · Kinky Curly 22"</footer></article>
+    </div>
+  </section>
+
+  <section class="wrap" aria-labelledby="t-faq">
+    <div class="head"><h2 id="t-faq">Questions</h2></div>
+    <div class="faq">
+      <details open><summary>How long does delivery take?</summary><p>Orders are dispatched within 1–3 working days and arrive in 3–7 working days in the UK. You get a tracking link by email as soon as your order ships.</p></details>
+      <details><summary>Can I dye or bleach the hair?</summary><p>Yes. Our hair is unprocessed natural colour 1B, so it can be lifted, toned and heat styled. We recommend a strand test and a professional colourist for anything past level 8.</p></details>
+      <details><summary>How many bundles do I need?</summary><p>Three bundles suit most full heads up to 22". For 24" and longer, or for a very full look, choose four. Add a closure or frontal for a leave-out free install.</p></details>
+      <details><summary>What is your returns policy?</summary><p>Return unopened, unworn hair with the lace uncut within 14 days of delivery. Start a return from your account page.</p></details>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="news">
+    <div><p class="eyebrow">The Velvet list</p><h2>10% off your first order</h2></div>
+    <form id="newsForm"><label for="email" class="eyebrow" style="flex-basis:100%">Email address</label><input id="email" type="email" required placeholder="you@example.com"><button class="btn">Join</button><p class="ok" id="newsOk" hidden>You're on the list. Your code is FIRST10.</p></form>
+  </div></div>
+</main>
+
+<footer class="site"><div class="wrap">
+  <div class="cols">
+    <div><div class="logo">Velvet Lengths</div><p style="color:var(--muted);max-width:32ch">Premium virgin hair, wigs and extensions. Delivered across the UK and Europe.</p></div>
+    <div><h4>Shop</h4><a href="#">Wigs</a><a href="#">Bundles</a><a href="#">Closures &amp; Frontals</a><a href="#">Clip-ins</a><a href="#">Gift cards</a></div>
+    <div><h4>Help</h4><a href="#">Track my order</a><a href="#">Delivery</a><a href="#">Returns</a><a href="#">Hair care</a><a href="#">Contact</a></div>
+    <div><h4>Brand</h4><a href="#">Our story</a><a href="#">Ambassadors</a><a href="#">Wholesale</a><a href="#">Instagram</a><a href="#">TikTok</a></div>
+  </div>
+  <div class="pay"><span>VISA</span><span>MASTERCARD</span><span>AMEX</span><span>APPLE PAY</span><span>GOOGLE PAY</span><span>SHOP PAY</span><span>KLARNA</span><span>CLEARPAY</span><span>PAYPAL</span></div>
+  <p style="color:var(--muted);font-size:12px;margin-top:20px">© 2026 Velvet Lengths.</p>
+</div></footer>
+
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const tones=[["#2a1a14","#4a3024"],["#1c1210","#3b2620"],["#3a2418","#6a4630"],["#5a3a24","#9a7048"]];
+const shapes={straight:[0,0],body:[18,.9],loose:[12,.6],deep:[9,2.2],water:[7,3.2],kinky:[5,6]};
+function drawHair(c){
+  const r=c.getBoundingClientRect(),d=devicePixelRatio||1,w=c.width=Math.max(1,r.width*d),h=c.height=Math.max(1,r.height*d);
+  const x=c.getContext("2d"),[amp,freq]=shapes[c.dataset.tex]||shapes.body,t=tones[+c.dataset.tone||0];
+  const g=x.createLinearGradient(0,0,w,h);g.addColorStop(0,t[1]);g.addColorStop(1,t[0]);x.fillStyle=g;x.fillRect(0,0,w,h);
+  const n=Math.round(w/(3*d));
+  for(let i=0;i<n;i++){
+    const x0=(i/n)*w*1.2-w*.1,ph=Math.sin(i*.37)*2,a=amp*d*(.8+.4*Math.sin(i*1.7));
+    x.beginPath();
+    for(let y=0;y<=h;y+=4*d){const px=x0+Math.sin(y/h*Math.PI*2*freq+ph)*a+Math.sin(y/(h*.5))*amp*d*.3;y?x.lineTo(px,y):x.moveTo(px,y)}
+    const l=40+Math.abs(Math.sin(i*2.3))*45;
+    x.strokeStyle=`hsla(${22+Math.sin(i)*6},45%,${l}%,${.08+Math.abs(Math.sin(i*.9))*.18})`;x.lineWidth=(.6+Math.abs(Math.sin(i*3.1)))*d;x.stroke();
+  }
+  const sh=x.createLinearGradient(0,0,w,0);sh.addColorStop(.3,"rgba(255,230,210,0)");sh.addColorStop(.5,"rgba(255,230,210,.12)");sh.addColorStop(.7,"rgba(255,230,210,0)");x.fillStyle=sh;x.fillRect(0,0,w,h);
+}
+const products=[
+  {n:"Body Wave 13×4 HD Lace Front Wig",t:"wig",tex:"body",tone:2,from:189,was:229,lens:[16,18,20,22,24],r:4.9,c:612,b:"Bestseller"},
+  {n:"Silky Straight Virgin Bundle",t:"bundle",tex:"straight",tone:1,from:49,lens:[12,14,16,18,20,22,24,26,28,30],r:4.8,c:944},
+  {n:"Deep Wave 5×5 HD Closure",t:"closure",tex:"deep",tone:0,from:69,lens:[12,14,16,18,20],r:4.8,c:201,b:"HD lace"},
+  {n:"Kinky Curly Glueless Wig",t:"wig",tex:"kinky",tone:1,from:209,was:249,lens:[16,18,20,22],r:4.9,c:338,b:"New"},
+  {n:"Water Wave Virgin Bundle",t:"bundle",tex:"water",tone:0,from:55,lens:[14,16,18,20,22,24],r:4.7,c:410},
+  {n:"Straight 13×4 HD Frontal",t:"closure",tex:"straight",tone:3,from:89,lens:[14,16,18,20],r:4.8,c:176},
+  {n:"Loose Wave 5×5 Closure Wig",t:"wig",tex:"loose",tone:2,from:169,lens:[16,18,20,22,24],r:4.8,c:257},
+  {n:"Deep Wave Virgin Bundle",t:"bundle",tex:"deep",tone:1,from:52,lens:[12,14,16,18,20,22,24,26],r:4.9,c:521,b:"Bestseller"}
+];
+const price=(p,l)=>p.from+(l-p.lens[0])/2*(p.t==="bundle"?8:p.t==="wig"?20:12);
+const grid=document.getElementById("grid");
+function render(f){
+  grid.innerHTML="";
+  products.filter(p=>f==="all"||p.t===f).forEach(p=>{
+    const el=document.createElement("article");el.className="card";let sel=p.lens[0];
+    const stars="★".repeat(Math.round(p.r))+"<i>"+"★".repeat(5-Math.round(p.r))+"</i>";
+    el.innerHTML=`<div class="media"><canvas data-tex="${p.tex}" data-tone="${p.tone}" aria-hidden="true"></canvas>${p.b?`<span class="badge ${p.b==="Bestseller"?"hot":""}">${p.b}</span>`:""}<button class="btn quick">Add to bag</button></div>
+    <h3>${p.n}</h3><div class="lengths" role="group" aria-label="Length">${p.lens.map(l=>`<button aria-pressed="${l===sel}" data-l="${l}">${l}"</button>`).join("")}</div>
+    <div class="meta"><span class="price"></span><span class="stars" aria-label="${p.r} out of 5">${stars} ${p.c}</span></div><span class="klarna"></span>`;
+    const upd=()=>{const v=price(p,sel),w=p.was?v+(p.was-p.from):0;el.querySelector(".price").innerHTML=`£${v}${w?`<s>£${w}</s>`:""}`;el.querySelector(".klarna").textContent=`or 3 payments of £${(v/3).toFixed(2)} with Klarna`};
+    el.querySelectorAll(".lengths button").forEach(b=>b.onclick=()=>{sel=+b.dataset.l;el.querySelectorAll(".lengths button").forEach(o=>o.setAttribute("aria-pressed",o===b));upd()});
+    el.querySelector(".quick").onclick=()=>addToBag(`${p.n}, ${sel}"`);
+    upd();grid.appendChild(el);
+  });
+  grid.querySelectorAll("canvas").forEach(drawHair);
+}
+document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>{document.querySelectorAll(".chip").forEach(o=>o.setAttribute("aria-pressed",o===c));render(c.dataset.f)});
+let count=0;const toast=document.getElementById("toast");let tt;
+function addToBag(name){count++;document.getElementById("cartCount").textContent=count;toast.textContent=`Added to bag: ${name}`;toast.hidden=false;clearTimeout(tt);tt=setTimeout(()=>toast.hidden=true,2400)}
+
+// bundle builder
+const lenBase=[159,189,229],addOn=[0,69,89],texAdj=[0,6,12];
+const seg=k=>[...document.querySelectorAll(`.seg[data-k="${k}"] button`)].findIndex(b=>b.getAttribute("aria-pressed")==="true");
+function bundle(){const full=lenBase[seg("len")]+addOn[seg("add")]+texAdj[seg("tex")],disc=seg("add")?.8:.88,v=Math.round(full*disc);
+  document.getElementById("bTotal").textContent=`£${v}`;document.getElementById("bWas").textContent=`£${full}`}
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{b.parentNode.querySelectorAll("button").forEach(o=>o.setAttribute("aria-pressed",o===b));bundle()});
+document.getElementById("bAdd").onclick=()=>addToBag("Bundle deal");
+document.getElementById("cartBtn").onclick=()=>{toast.textContent=count?`${count} item${count>1?"s":""} in your bag`:"Your bag is empty";toast.hidden=false;clearTimeout(tt);tt=setTimeout(()=>toast.hidden=true,2000)};
+document.getElementById("newsForm").addEventListener("submit",e=>{e.preventDefault();document.getElementById("newsOk").hidden=false});
+
+// length chart: silhouette with fall points
+function chart(){
+  const s=document.getElementById("lenChart"),pts=[[12,"Chin"],[14,"Neck"],[16,"Shoulder"],[18,"Collarbone"],[20,"Armpit"],[22,"Bra strap"],[24,"Mid-back"],[26,"Lower back"],[30,"Waist"]];
+  const y=i=>40+(i-12)*12.5;
+  let o=`<circle cx="120" cy="34" r="26" fill="var(--soft)" stroke="var(--muted)"/><path d="M78 300 Q80 120 120 64 Q160 120 162 300Z" fill="var(--soft)" stroke="var(--muted)"/>`;
+  o+=`<path d="M92 30 Q120 0 148 30 L150 ${y(24)} Q120 ${y(24)+14} 90 ${y(24)}Z" fill="var(--accent)" opacity=".85"/>`;
+  pts.forEach(([l,lab])=>{o+=`<line x1="175" x2="260" y1="${y(l)}" y2="${y(l)}" stroke="var(--line)"/><text x="268" y="${y(l)+4}" font-family="DM Mono, monospace" font-size="12" fill="var(--ink)">${l}"</text><text x="310" y="${y(l)+4}" font-family="Figtree, sans-serif" font-size="13" fill="var(--muted)">${lab}</text>`});
+  o+=`<text x="268" y="${y(24)+22}" font-family="Figtree, sans-serif" font-size="11" fill="var(--accent)">Shown: 24" straight</text>`;
+  s.innerHTML=o;
+}
+render("all");bundle();chart();
+const redraw=()=>document.querySelectorAll("canvas[data-tex]").forEach(drawHair);
+redraw();addEventListener("resize",()=>{clearTimeout(window._r);window._r=setTimeout(redraw,150)});
+document.fonts&&document.fonts.ready.then(redraw);
+</script>
+</body></html>
